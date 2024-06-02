@@ -176,8 +176,6 @@ static char *advquoted(char *p)
 /* csvfield:  return pointer to n-th field */
 char *csvfield(int n)
 {
-	if (nrow <= 1)
-		return NULL;
 	if (n < 0 || n >= nfield)
 		return NULL;
 	return field[n];
@@ -187,8 +185,6 @@ char *csvfield(int n)
 char *csvkey(char *k)
 {
 	int max = nkey < nfield ? nkey : nfield;
-	if (nrow <= 1)
-		return NULL;
 	for (int i = 0; i < max; i++) {
 		if (!strcmp(key[i], k))
 			return field[i];
@@ -229,5 +225,6 @@ int csvtest(void)
 		for (i = 0; i < csvnfield(); i++)
 			printf("field[%d] = `%s'\n", i, csvfield(i));
 	}
+	csvclose();
 	return 0;
 }
